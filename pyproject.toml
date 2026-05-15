@@ -74,7 +74,7 @@ test = [
 ]
 lint = [
     "mypy>=1.10",
-    "pre-commit>=3.7",
+    "prek",
     "ruff>=0.4",
     "types-PyYAML>=6.0",
 ]

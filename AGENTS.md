@@ -72,14 +72,14 @@ cd ansible-el-compat
 # Install all dev dependencies (creates .venv automatically)
 uv sync --group dev
 
-# Install pre-commit hooks
-uv run pre-commit install
+# Install git hooks
+uv run prek install
 ```
 
 ## Running checks
 
 ```bash
-uv run pre-commit run --all-files  # lint (ruff) + type check (mypy) + misc hooks
+uv run prek run --all-files  # lint (ruff) + type check (mypy) + misc hooks
 ```
 
 **Run this after every set of changes before reporting work as done.**  It is

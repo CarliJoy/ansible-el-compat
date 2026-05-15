@@ -120,8 +120,10 @@ For persistent repo enable/disable (not per-transaction), continue using
 ```bash
 git clone https://github.com/CarliJoy/ansible-el-compat
 cd ansible-el-compat
-uv sync --extra test
-uv run pytest tests/ -v
+uv sync --group dev
+uv run prek install          # install git hooks
+uv run prek run --all-files  # lint + type check
+uv run pytest tests/ -v      # integration tests (requires Docker)
 ```
 
 Tests use [testcontainers](https://testcontainers.com/) to spin up a real
