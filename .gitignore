@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+.venv*/
+.mypy_cache/
+.ruff_cache/
+
+# hatch generated
+src/ansible_collections/carlijoy/compat/_version.py
+src/ansible_collections/carlijoy/compat/galaxy.yml
+src/ansible_collections/carlijoy/compat/plugins/modules/dnf
+
+# Build artifacts
+build/*
+dist/*
+sdist/*
+cover/*
+
+# Unittest and coverage
+htmlcov/*
+.coverage
+.tox
+.nox
+junit.xml
+coverage.xml
+.pytest_cache/
+
+# pre-commit
+.pre-commit-cache/
+
+# editors
+.idea/
+.vscode/
+*.swp
+*~

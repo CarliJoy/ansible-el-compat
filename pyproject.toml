@@ -1,0 +1,155 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs", "packaging", "uv"]
+build-backend = "hatchling.build"
+
+# ---------------------------------------------------------------------------
+# Project metadata
+# ---------------------------------------------------------------------------
+[project]
+name = "ansible-el-compat"
+dynamic = ["version"]
+description = "Ansible collection carlijoy.compat — backport of ansible.builtin.dnf for EL8 + ansible-core >= 2.17 via /usr/libexec/platform-python"
+readme = "README.md"
+license = "GPL-3.0-or-later"
+requires-python = ">=3.10"
+authors = [
+    { name = "CarliJoy", email = "carlijoy@users.noreply.github.com" },
+]
+keywords = ["ansible", "el8", "rhel8", "almalinux", "rocky", "dnf", "compat", "backport"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: System :: Systems Administration",
+]
+dependencies = [
+    "ansible-core>=2.17",
+]
+
+[project.urls]
+Homepage = "https://github.com/CarliJoy/ansible-el-compat"
+Repository = "https://github.com/CarliJoy/ansible-el-compat"
+Issues = "https://github.com/CarliJoy/ansible-el-compat/issues"
+Changelog = "https://github.com/CarliJoy/ansible-el-compat/releases"
+
+
+# ---------------------------------------------------------------------------
+# Hatch / versioning
+# ---------------------------------------------------------------------------
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/ansible_collections/carlijoy/compat/_version.py"
+
+[tool.hatch.build.hooks.custom]
+
+[project.entry-points."hatch.builder"]
+galaxy = "hatch_build:CustomBuilder"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ansible_collections"]
+exclude = ["**/galaxy.template.yml"]
+dev-mode-dirs = ["src", "."]
+
+[tool.hatch.build.targets.galaxy]
+
+
+[dependency-groups]
+build = [
+    "hatch",
+    "ansible",
+]
+test = [
+    "coverage>=7.14.0",
+    "pytest>=9.0",
+    "pytest-timeout>=2.3",
+    "pyyaml>=6.0",
+    "testcontainers>=4.8",
+]
+lint = [
+    "mypy>=1.10",
+    "pre-commit>=3.7",
+    "ruff>=0.4",
+    "types-PyYAML>=6.0",
+]
+dev = [
+    {include-group = "build"},
+    {include-group = "test"},
+    {include-group = "lint"},
+]
+
+# ---------------------------------------------------------------------------
+# Ruff
+# ---------------------------------------------------------------------------
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # pyflakes
+    "I",      # isort
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "UP",     # pyupgrade
+    "ANN",    # flake8-annotations
+    "SIM",    # flake8-simplify
+    "TCH",    # flake8-type-checking
+    "RUF",    # ruff-specific
+]
+ignore = [
+    "ANN101",  # missing type for self
+    "ANN102",  # missing type for cls
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["ansible_collections.carlijoy"]
+
+[tool.ruff.format]
+docstring-code-format = true
+
+# ---------------------------------------------------------------------------
+# Mypy
+# ---------------------------------------------------------------------------
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_return_any = true
+warn_unused_ignores = true
+show_error_codes = true
+# ansible stubs don't exist — ignore missing imports for ansible internals
+[[tool.mypy.overrides]]
+module = ["ansible.*"]
+ignore_missing_imports = true
+
+# ---------------------------------------------------------------------------
+# Pytest
+# ---------------------------------------------------------------------------
+[tool.pytest.ini_options]
+timeout = 300
+log_cli = true
+log_cli_level = "INFO"
+addopts = "-ra"
+markers = [
+    "integration: requires Docker (testcontainers)",
+]
+norecursedirs = [
+    "dist",
+    "build",
+    ".venv",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["ansible_collections.carlijoy.compat"]
+
+[tool.coverage.report]
+show_missing = true

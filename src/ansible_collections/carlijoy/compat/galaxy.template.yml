@@ -1,0 +1,19 @@
+namespace: carlijoy
+name: compat
+version: {version}
+readme: README.md
+description: Backport of ansible.builtin.dnf for EL8 + ansible-core >= 2.17 via /usr/libexec/platform-python
+license:
+  - GPL-3.0-or-later
+authors:
+  - CarliJoy (https://github.com/CarliJoy)
+repository: https://github.com/CarliJoy/ansible-el-compat
+tags:
+  - el8
+  - rhel8
+  - almalinux
+  - rocky
+  - dnf
+  - compat
+build_ignore:
+  - galaxy.template.yml
