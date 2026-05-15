@@ -5,6 +5,7 @@ readme: README.md
 description: Backport of ansible.builtin.dnf for EL8 + ansible-core >= 2.17 via /usr/libexec/platform-python
 license:
   - GPL-3.0-or-later
+license_file: LICENSE
 authors:
   - Carli* Freudenberg (https://github.com/CarliJoy)
 repository: https://github.com/CarliJoy/ansible-el-compat
@@ -17,3 +18,5 @@ tags:
   - compat
 build_ignore:
   - galaxy.template.yml
+  - _version.py
+  - __pycache__
