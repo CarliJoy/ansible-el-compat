@@ -10,7 +10,6 @@ description: >-
   Project) via /usr/libexec/platform-python
 license:
   - GPL-3.0-or-later
-license_file: LICENSE
 authors:
   - Carli* Freudenberg (https://github.com/CarliJoy)
 repository: https://github.com/CarliJoy/ansible-el-compat
