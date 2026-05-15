@@ -6,7 +6,7 @@ description: Backport of ansible.builtin.dnf for EL8 + ansible-core >= 2.17 via 
 license:
   - GPL-3.0-or-later
 authors:
-  - CarliJoy (https://github.com/CarliJoy)
+  - Carli* Freudenberg (https://github.com/CarliJoy)
 repository: https://github.com/CarliJoy/ansible-el-compat
 tags:
   - el8
