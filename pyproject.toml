@@ -49,8 +49,8 @@ version-file = "src/ansible_collections/carlijoy/compat/_version.py"
 
 [tool.hatch.build.hooks.custom]
 
-[project.entry-points."hatch.builder"]
-galaxy = "hatch_build:CustomBuilder"
+[project.entry-points."hatch"]
+galaxy = "hatch_build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/ansible_collections"]
@@ -62,7 +62,8 @@ dev-mode-dirs = ["src", "."]
 
 [dependency-groups]
 build = [
-    "hatch",
+    "hatch-vcs",
+    "hatchling",
     "ansible",
 ]
 test = [

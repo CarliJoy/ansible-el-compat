@@ -27,7 +27,7 @@ jobs:
         run: uv build
 
       - name: Build Galaxy collection tarball
-        run: uv run --group build hatch build --target galaxy dist/galaxy/
+        run: uv run --group build hatchling build --target galaxy --directory dist/galaxy/
 
       - name: Smoke-test wheel
         run: >

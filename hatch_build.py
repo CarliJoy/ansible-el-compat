@@ -7,6 +7,7 @@ from typing import Any
 
 from hatchling.builders.hooks.plugin.interface import BuildHookInterface
 from hatchling.builders.plugin.interface import BuilderInterface
+from hatchling.plugin import hookimpl
 from packaging.version import Version
 
 _COLLECTION_DIR = Path("src/ansible_collections/carlijoy/compat")
@@ -40,6 +41,11 @@ class CustomBuildHook(BuildHookInterface):
         script = Path(self.root) / _DNF_BUNDLE_SCRIPT
         subprocess.run(["uv", "run", str(script)], check=True, cwd=self.root)
         build_data["artifacts"].append(str(_DNF_MODULE))
+
+
+@hookimpl
+def hatch_register_builder() -> type[BuilderInterface]:
+    return CustomBuilder
 
 
 class CustomBuilder(BuilderInterface):
