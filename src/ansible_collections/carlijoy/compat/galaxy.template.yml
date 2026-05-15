@@ -2,7 +2,12 @@ namespace: carlijoy
 name: compat
 version: {version}
 readme: README.md
-description: Backport of ansible.builtin.dnf for EL8 + ansible-core >= 2.17 via /usr/libexec/platform-python
+# The bundled dnf module is the original ansible.builtin.dnf from ansible-core
+# 2.15, authored by the Ansible Project contributors (see NOTICE for details).
+description: >-
+  Backport of ansible.builtin.dnf for EL8 + ansible-core >= 2.17, bundling the
+  original ansible.builtin.dnf from ansible-core 2.15 (authored by the Ansible
+  Project) via /usr/libexec/platform-python
 license:
   - GPL-3.0-or-later
 license_file: LICENSE

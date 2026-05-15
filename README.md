@@ -141,6 +141,36 @@ This downloads ansible-core 2.15 into an isolated environment (via the inline
 `ansible/module_utils/` dependencies, and writes the self-executing zip to
 `src/ansible_collections/carlijoy/compat/plugins/modules/dnf`.
 
+## Attribution & Bundled Components
+
+This collection bundles the original `ansible.builtin.dnf` module from
+**ansible-core 2.15**, written by the Ansible project contributors. The bundle
+is not a fork or reimplementation — it is that exact module, unchanged, just
+repackaged to run under the EL8 system Python interpreter that has access to
+`python3-dnf`. All credit for the actual dnf functionality belongs to the
+original authors.
+
+### Why the module is bundled
+
+ansible-core 2.17 introduced `from __future__ import annotations` across its
+module code, which requires Python 3.10+ on managed hosts. On EL8 targets,
+`python3-dnf` is only available for Python 3.6 and 3.9, so
+`ansible.builtin.dnf` started failing. This collection solves that by bundling
+the last ansible-core version (2.15) that fully supports EL8 and shipping it as
+a binary module with a `#!/usr/libexec/platform-python` shebang that bypasses
+the controller's Python choice entirely.
+
+### Links to the original source
+
+- ansible/ansible repository: <https://github.com/ansible/ansible>
+- `dnf.py` at v2.15.0: <https://github.com/ansible/ansible/blob/v2.15.0/lib/ansible/modules/dnf.py>
+- `yumdnf.py` at v2.15.0: <https://github.com/ansible/ansible/blob/v2.15.0/lib/ansible/module_utils/yumdnf.py>
+
+Thank you to the Ansible project and all Red Hat contributors for the work that
+makes this compatibility shim possible. See the `NOTICE` file in this
+repository for the complete attribution and license notices for every bundled
+file.
+
 ## License
 
 GPL-3.0-or-later

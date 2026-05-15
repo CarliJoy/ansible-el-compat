@@ -1,0 +1,166 @@
+NOTICE
+======
+
+ansible-el-compat — Ansible Collection carlijoy.compat
+=======================================================
+
+This project provides a compatibility shim that makes the ansible.builtin.dnf
+module work on Enterprise Linux 8 (EL8: AlmaLinux 8, Rocky Linux 8, RHEL 8)
+when using modern versions of ansible-core (2.17 and later).
+
+The collection bundles a pre-built, self-executing zip archive that contains
+the original ansible.builtin.dnf module from ansible-core 2.15, together with
+all of its ansible.module_utils.* dependencies. The bundle runs under
+/usr/libexec/platform-python — the EL8 system Python interpreter that has
+access to python3-dnf — bypassing the Python version incompatibility that
+affects modern ansible-core on EL8 targets.
+
+None of the bundled code has been modified. All credit for the dnf module
+functionality belongs to the original authors listed below.
+
+===========================================================================
+Bundled Component 1: ansible.builtin.dnf  (ansible/modules/dnf.py)
+===========================================================================
+
+  Original file : lib/ansible/modules/dnf.py
+  Source URL    : https://github.com/ansible/ansible/blob/v2.15.0/lib/ansible/modules/dnf.py
+  Taken from    : ansible-core 2.15.0
+  License       : GNU General Public License v3.0 or later (GPL-3.0-or-later)
+
+  Copyright notice (verbatim from the original file header):
+  -----------------------------------------------------------
+  Copyright 2015 Cristian van Ee <cristian at cvee.org>
+  Copyright 2015 Igor Gnatenko <i.gnatenko.brain@gmail.com>
+  Copyright 2018 Adam Miller <admiller@redhat.com>
+
+  GNU General Public License v3.0+ (see COPYING or
+  https://www.gnu.org/licenses/gpl-3.0.txt)
+
+  Description:
+  The primary dnf package manager module for Ansible. It provides full
+  lifecycle management of RPM packages on DNF-based systems, including
+  install, remove, upgrade, group operations, and repository management.
+  Written by Cristian van Ee and Igor Gnatenko in 2015 and subsequently
+  maintained and extended by Adam Miller (Red Hat) and the Ansible
+  community. ansible-core 2.15 is the last release that fully supports EL8
+  targets; starting from 2.17 the module uses Python 3.10+ syntax
+  (from __future__ import annotations) that is unavailable on the EL8
+  system Python.
+
+===========================================================================
+Bundled Component 2: ansible.module_utils.yumdnf  (ansible/module_utils/yumdnf.py)
+===========================================================================
+
+  Original file : lib/ansible/module_utils/yumdnf.py
+  Source URL    : https://github.com/ansible/ansible/blob/v2.15.0/lib/ansible/module_utils/yumdnf.py
+  Taken from    : ansible-core 2.15.0
+  License       : GNU General Public License v3.0 or later (GPL-3.0-or-later)
+
+  Copyright notice (verbatim from the original file header):
+  -----------------------------------------------------------
+  Copyright: (c) 2012, Red Hat, Inc
+  Written by Seth Vidal <skvidal at fedoraproject.org>
+  Contributing Authors:
+    - Ansible Core Team
+    - Eduard Snesarev (@verm666)
+    - Berend De Schouwer (@berenddeschouwer)
+    - Abhijeet Kasurde (@Akasurde)
+
+  GNU General Public License v3.0+ (see COPYING or
+  https://www.gnu.org/licenses/gpl-3.0.txt)
+
+  Description:
+  Shared utility module providing the common base class and argument
+  specification for both the yum and dnf Ansible modules. Originally
+  written by Seth Vidal of Red Hat, with contributions from the Ansible
+  Core Team and community contributors Eduard Snesarev, Berend De Schouwer,
+  and Abhijeet Kasurde.
+
+===========================================================================
+Bundled Component 3: ansible.module_utils.basic  (ansible/module_utils/basic.py)
+===========================================================================
+
+  Original file : lib/ansible/module_utils/basic.py
+  Source URL    : https://github.com/ansible/ansible/blob/v2.15.0/lib/ansible/module_utils/basic.py
+  Taken from    : ansible-core 2.15.0
+  License       : Simplified BSD License (BSD-2-Clause)
+
+  Copyright notice (verbatim from the original file header):
+  -----------------------------------------------------------
+  Copyright (c), Michael DeHaan <michael.dehaan@gmail.com>, 2012-2013
+  Copyright (c), Toshio Kuratomi <tkuratomi@ansible.com> 2016
+
+  Simplified BSD License (see licenses/simplified_bsd.txt or
+  https://opensource.org/licenses/BSD-2-Clause)
+
+  Description:
+  The foundational module utility for Ansible, providing the AnsibleModule
+  class that every Ansible module depends on. Handles argument parsing,
+  result formatting, JSON communication with the controller, privilege
+  escalation, and many other core behaviours. Written by Michael DeHaan
+  (the original creator of Ansible) and substantially extended by
+  Toshio Kuratomi. Also bundled here as a direct dependency of
+  ansible/modules/dnf.py.
+
+===========================================================================
+Bundled Component 4: ansible.module_utils.urls  (ansible/module_utils/urls.py)
+===========================================================================
+
+  Original file : lib/ansible/module_utils/urls.py
+  Source URL    : https://github.com/ansible/ansible/blob/v2.15.0/lib/ansible/module_utils/urls.py
+  Taken from    : ansible-core 2.15.0
+  License       : Simplified BSD License (BSD-2-Clause); portions under
+                  Python Software Foundation License (PSF)
+
+  Copyright notice (verbatim from the original file header):
+  -----------------------------------------------------------
+  Copyright (c), Michael DeHaan <michael.dehaan@gmail.com>, 2012-2013
+  Copyright (c), Toshio Kuratomi <tkuratomi@ansible.com>, 2015
+
+  Simplified BSD License (see licenses/simplified_bsd.txt or
+  https://opensource.org/licenses/BSD-2-Clause)
+
+  The match_hostname function and supporting code is under the terms and
+  conditions of the Python Software Foundation License. They were taken
+  from the Python 3 standard library and adapted for use in Python 2.
+
+  PSF License (see licenses/PSF-license.txt or
+  https://opensource.org/licenses/Python-2.0)
+
+  Description:
+  HTTP/HTTPS URL fetching utilities for Ansible modules, providing proxy
+  handling, certificate verification, and authentication support. Written
+  by Michael DeHaan and extended by Toshio Kuratomi. Bundled here as a
+  transitive dependency of ansible/modules/dnf.py.
+
+===========================================================================
+Additional bundled ansible.module_utils files
+===========================================================================
+
+  The build script (build-script/build_dnf_bundle.py) performs a full
+  transitive dependency scan of ansible/modules/dnf.py and bundles every
+  ansible.module_utils.* file it imports, recursively. Beyond the four
+  primary components above, the bundle will include additional utility
+  modules such as:
+
+    ansible.module_utils.common.*
+    ansible.module_utils.parsing.*
+    ansible.module_utils.six.*
+    (and other transitive dependencies)
+
+  All such files are taken verbatim from ansible-core 2.15.0 and retain
+  the copyright notices and licenses present in those files within the
+  ansible/ansible repository at tag v2.15.0.
+
+===========================================================================
+Source availability
+===========================================================================
+
+  All bundled code is completely unmodified from ansible-core 2.15.0.
+  The complete source of ansible-core 2.15 is available at:
+
+    https://github.com/ansible/ansible/tree/v2.15.0
+
+  The ansible/ansible repository is maintained by Red Hat, Inc. and the
+  Ansible community. We are grateful to every contributor to the Ansible
+  project whose work makes this compatibility collection possible.

@@ -1,4 +1,21 @@
 #!/usr/libexec/platform-python
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# This file is the bootstrap wrapper for the carlijoy.compat.dnf binary module.
+# The module code bundled in this zip (ansible/modules/dnf.py and all
+# ansible/module_utils/* dependencies) is unmodified from ansible-core 2.15.0.
+#
+# Original dnf module authors:
+#   Copyright 2015 Cristian van Ee <cristian at cvee.org>
+#   Copyright 2015 Igor Gnatenko <i.gnatenko.brain@gmail.com>
+#   Copyright 2018 Adam Miller <admiller@redhat.com>
+#
+# Original source: https://github.com/ansible/ansible/blob/v2.15.0/lib/ansible/modules/dnf.py
+# License of bundled code: GNU General Public License v3.0 or later (GPL-3.0-or-later)
+#
+# This bootstrap wrapper itself:
+#   SPDX-FileCopyrightText: 2025 Carli* Freudenberg <kound@posteo.de>
+#   SPDX-License-Identifier: GPL-3.0-or-later
 """Bootstrap for carlijoy.compat.dnf binary module.
 
 Ansible binary-module protocol

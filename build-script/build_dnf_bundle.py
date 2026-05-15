@@ -4,6 +4,19 @@
 #   "ansible-core==2.15.*",
 # ]
 # ///
+# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-FileCopyrightText: 2025 Carli* Freudenberg <kound@posteo.de>
+#
+# Bundles ansible-core 2.15.* — the last ansible-core release with full EL8
+# support. Starting from ansible-core 2.17, the dnf module uses
+# `from __future__ import annotations` which requires Python 3.10+ and breaks
+# on the EL8 system Python (3.6/3.9) where python3-dnf lives.
+#
+# The bundled module code is unmodified. Original authors:
+#   Copyright 2015 Cristian van Ee <cristian at cvee.org>
+#   Copyright 2015 Igor Gnatenko <i.gnatenko.brain@gmail.com>
+#   Copyright 2018 Adam Miller <admiller@redhat.com>
+# Source: https://github.com/ansible/ansible/blob/v2.15.0/lib/ansible/modules/dnf.py
 """
 build_dnf_bundle.py
 ===================
