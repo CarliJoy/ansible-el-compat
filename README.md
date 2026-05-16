@@ -2,12 +2,25 @@
 
 **Ansible collection `carlijoy.compat`** — backport of `ansible.builtin` modules for EL8 + ansible-core >= 2.17.
 
+> **No longer needed on ansible-core ≥ 2.21.** The upstream fix landed in
+> [ansible/ansible#86432](https://github.com/ansible/ansible/pull/86432).
+> This collection remains useful for ansible-core 2.17–2.20.
+
 ## The problem
 
 `ansible-core >= 2.17` ships module code that uses `from __future__ import annotations`,
 requiring Python 3.10+ on managed hosts. On AlmaLinux / Rocky Linux / RHEL 8,
 `python3-dnf` is only available for Python 3.6 and 3.9 — so `ansible.builtin.dnf`
 fails with a modern ansible-core.
+
+### Upstream fix in ansible-core 2.21
+
+ansible-core 2.21 (currently pre-release) resolves this problem natively via
+[PR #86432](https://github.com/ansible/ansible/pull/86432). The fix splits the
+`dnf` module into a modern-Python module layer and an older-Python CLI shim,
+so `ansible.builtin.dnf` can once again run against EL8 hosts without requiring
+Python 3.10+. If you are already on ansible-core ≥ 2.21, you can use
+`ansible.builtin.dnf` directly and do not need this collection.
 
 ## The solution
 
